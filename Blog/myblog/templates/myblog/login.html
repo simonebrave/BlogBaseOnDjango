@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+<meta http-equiv="Refresh" content="url 'myblog:register'">
+{% block title %}Log-in{% endblock %}
+
+{% block logo %}My-Blog{% endblock %}
+
+{% block content %}
+<div id="loginform">
+    <div id="loginformtext">
+        <h2>欢迎登录</h2>
+        <form action="{% url 'myblog:login' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <p><input type="submit" value="登录"></p>
+            {% if warning %}
+            <div id="warning"><p> {{ warning }}</p></div>
+            {% endif %}
+        </form>
+        <p>没有账号？<a href="{% url 'myblog:register' %}">点我注册</a></p>
+    </div>
+</div>
+{% endblock %}

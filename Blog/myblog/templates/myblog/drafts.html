@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ username }}的草稿箱
+{% endblock %}
+
+{% block logo %}
+    {{ username }}的草稿箱
+{% endblock %}
+
+{% block tool%}
+    <a class="linktext" href="{% url 'myblog:userblogs' username %}">我的博客</a>
+    <a class="linktext" href="{% url 'myblog:userlogout' username %}">退出</a>
+{% endblock %}
+
+{% block content %}
+    <ul id="listtext">
+        {% for blog in blogs %}
+            <li><a class="linktext" href="{% url 'myblog:blogdetail' blog.id %}" target="_blank">{{ blog.title }}</a> </li>
+        {% endfor%}
+    </ul>
+
+{% endblock %}

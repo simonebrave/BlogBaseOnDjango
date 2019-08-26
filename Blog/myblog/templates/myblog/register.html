@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+<meta http-equiv="Refresh" content="url 'myblog:login'">
+{% block title %}Register{% endblock %}
+
+{% block logo %}My-Blog{% endblock %}
+
+{% block content %}
+
+{% if message %}
+    <div>
+        <h4>{{ message }}<a href="{% url 'myblog:register' %}">点我登录</a> </h4>
+    </div>
+{% elif message == None %}
+    <div id="loginform">
+        <div id="loginformtext">
+            <h2>欢迎注册</h2>
+            <form action="{% url 'myblog:register' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <p><input type="submit" value="注册"></p>
+                {% if warning %}
+                    <div id="warning"><p> {{ warning }}</p></div>
+                {% endif %}
+            </form>
+            <p>已有账号？<a href="{% url 'myblog:login' %}">点我登录</a></p>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

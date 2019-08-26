@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if message %}
+        错误提示
+    {% else %}
+         {{ title }}--{{ author }}的博客
+    {% endif %}
+{% endblock %}
+
+{% if message %}
+    {% block logo %}
+        {{ message }}
+    {% endblock %}
+{% else %}
+    {% block content %}
+        <br/>
+        <div id="blog-detail">
+            <div><span id="blog-title">{{ title }}</span></div>
+            <div>
+                <span id="blog-author">作者：{{ author }}</span>
+                <span id="blog-time"> 发表时间：{{ publish_time }}</span>
+            </div>
+            <br/>
+            <div id="blog-body"><span style="word-break:break-all">{{ body }}</span></div>
+        </div>
+    {% endblock %}
+
+{% endif %}
+
+
+

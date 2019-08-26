@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    创建博文
+{% endblock %}
+
+{% block content %}
+{% if message %}
+    <h4>{{ message }}</h4>
+{% else %}
+
+
+<form action="{% url 'myblog:newblog' username %}" method="post" class="edit_blog">
+    {% csrf_token %}
+    <div>
+        <p><label>标题：</label></p>
+        <p><input type="text" maxlength="100" style="width:78%" name="title" id="publish_title" required></p>
+    </div>
+    <div>
+        <p><label>正文：</label></p>
+        <p><textarea name="body" rows="30" cols="150" id="publish_body" ></textarea></p>
+        <input type="hidden" name="status" value="0">
+    </div>
+    <input type="submit" value="立即发表">
+</form>
+
+{% endif %}
+
+{% endblock %}

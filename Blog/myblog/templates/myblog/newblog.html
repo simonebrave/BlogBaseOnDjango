@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    创建博文
+{% endblock %}
+
+
+
+{% block content %}
+    <br/>
+    <div class="editor">
+        <script id="container" class="editor-content" name="content" type="text/plain">test</script>
+    </div>
+
+
+    <div>
+
+        <form action="{% url 'myblog:newblog' username %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" id="blog_body" name="body">
+            <script type="text/javascript" src="{% static 'js/ueditor/ueditor.config.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/ueditor/ueditor.all.js' %}"></script>
+            <script type="text/javascript">
+                var ue = UE.getEditor('container',);
+                ue.ready(function(){
+                    var txt = ue.getContentTxt();
+                    document.getElementById("blog_body").value = txt
+                });
+
+            </script>
+            <input type="submit" value="立即发表">
+        </form>
+    </div>
+
+
+
+{% endblock %}
