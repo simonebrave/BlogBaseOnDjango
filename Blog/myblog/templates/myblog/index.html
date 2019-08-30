@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+<meta http-equiv="Refresh" content="url 'myblog:login'">
+{% load static %}
+
+{% block title %}
+首页
+{% endblock %}
+
+{% block logo %}
+首页
+{% endblock %}
+
+{% block tool %}
+    <a class="linktext" href="{% url 'myblog:login' %}">登录</a>
+{% endblock %}
+
+{% block content %}
+{% if message %}
+    <h4 style="color: #FFBF00; margin-left: 160px;">{{ message }}</h4>
+{% else %}
+     <ul id="listtext">
+        {% for blog in blogs %}
+            <li>
+                <a class="linktext" href="{% url 'myblog:blogdetail' blog.id %}" target="_blank">{{ blog.title }}</a>
+            </li>
+        {% endfor%}
+    </ul>
+{% endif %}
+{% endblock %}

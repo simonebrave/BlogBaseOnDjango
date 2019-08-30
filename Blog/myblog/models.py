@@ -57,3 +57,18 @@ class Content(models.Model):
         verbose_name = '博文'
         verbose_name_plural = '博文'
 
+class Comment(models.Model):
+    blog = models.ForeignKey('Blog', on_delete=models.CASCADE, verbose_name='博客')
+    comment_by = models.ForeignKey('User', null=True, blank=True, on_delete=models.SET_NULL, verbose_name='评论者')
+    publish_time = models.DateTimeField(auto_now_add=True, verbose_name='评论时间')
+    comment_text = models.TextField(verbose_name='评论详情')
+
+    class Meta:
+        ordering = ['-publish_time']
+        verbose_name = '评论'
+        verbose_name_plural = '评论'
+
+    def __str__(self):
+        return 'comment by {} on {}'.format(self.comment_by, self.blog)
+
+

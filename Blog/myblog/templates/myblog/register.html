@@ -8,7 +8,7 @@
 
 {% if message %}
     <div>
-        <h4>{{ message }}<a href="{% url 'myblog:register' %}">点我登录</a> </h4>
+        <h4>{{ message }}<a href="{% url 'myblog:login' %}">点我登录</a> </h4>
     </div>
 {% elif message == None %}
     <div id="loginform">

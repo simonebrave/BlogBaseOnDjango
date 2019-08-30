@@ -24,6 +24,43 @@
             <br/>
             <div id="blog-body"><span style="word-break:break-all">{{ body }}</span></div>
         </div>
+
+        {% if not status %}
+            <div id="comment-detail">
+                <script>
+                    function commit_comment(){
+                        var form = new FormData(document.getElementById("comment_form"));
+                        var flag = true;
+                        var comment;
+                        for(var pair of form.entries()){
+                        if(flag){
+                        flag = false;
+                        continue;}
+
+                        comment = pair[1];
+                        break;
+                        }
+                        console.log("我"+": "+comment)
+                       fetch("{% url 'myblog:blogdetail' id %}", {
+                               method: "POST",
+                               body: form}).then(document.getElementById("new_comment").innerHTML = "我" + ": " + comment)
+                    }
+                </script>
+
+                <p>评论列表</p>
+                {% for comment in comments %}
+                    <p>{{ comment }}</p>
+                {% endfor %}
+                <form id="comment_form">
+                    {% csrf_token %}
+                    <input type="text" name="comment_body" id="comment_text">
+                    <input type="hidden" name="blog_id" value="{{ id }}">
+                    <input type="button" value="提交" onclick="commit_comment()">
+                </form>
+                <p id="new_comment"></p>
+            </div>
+        {% endif %}
+
     {% endblock %}
 
 {% endif %}

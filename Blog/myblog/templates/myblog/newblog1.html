@@ -10,8 +10,19 @@
     <h4>{{ message }}</h4>
 {% else %}
 
+<script>
+    function keepdraft(){
+        var form = new FormData(document.getElementById("blog_edit"));
+        form.append('status', '1')
 
-<form action="{% url 'myblog:newblog' username %}" method="post" class="edit_blog">
+        fetch("{% url 'myblog:newblog' username %}", {
+            method: "POST",
+            body: form
+        }).then(alert("保存成功！"))
+    }
+</script>
+
+<form action="{% url 'myblog:newblog' username %}" method="post" class="edit_blog" id="blog_edit">
     {% csrf_token %}
     <div>
         <p><label>标题：</label></p>
@@ -20,10 +31,10 @@
     <div>
         <p><label>正文：</label></p>
         <p><textarea name="body" rows="30" cols="150" id="publish_body" ></textarea></p>
-        <input type="hidden" name="status" value="0">
     </div>
-    <input type="submit" value="立即发表">
+    <input type="submit" value="立即发表">&nbsp;<input type="button" value="保存草稿" onclick="keepdraft()">
 </form>
+
 
 {% endif %}
 
